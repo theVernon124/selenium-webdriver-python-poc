@@ -1,0 +1,10 @@
+{
+  "input_data": {
+    "email": "user@phptravels.com",
+    "password": "demouser"
+  },
+  "expected_data": {
+    "account_header": "Hi, Raghavan Raghavendar",
+    "account_name": "RAGHAVAN"
+  }
+}
