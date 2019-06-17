@@ -1,0 +1,20 @@
+{
+  "input_data": {
+    "product_name": "Faded Short Sleeve T-shirts",
+    "email": "thevernon124+stang@gmail.com",
+    "password": "Test1234"
+  },
+  "expected_data": {
+    "add_to_cart_success_spiel": "Product successfully added to your shopping cart",
+    "product_name": "Faded Short Sleeve T-shirts",
+    "cart_count_spiel": "There is 1 item in your cart.",
+    "cart_product_names": ["Faded Short Sleeve T-shirts"],
+    "product_quantity": "1",
+    "customer_name": "Severiano Tang",
+    "customer_country": "United States",
+    "product_price": "$16.51",
+    "product_total": "$16.51",
+    "bankwire_header": "BANK-WIRE PAYMENT.",
+    "order_complete_spiel": "Your order on My Store is complete."
+  }
+}
