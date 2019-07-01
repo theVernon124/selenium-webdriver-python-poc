@@ -39,71 +39,56 @@ class TestCheckout(object):
         self.home_page.click_add_to_cart_button(self.driver, self.checkout_data["input_data"]["product_name"])
         self.asserts.verify_element_visibility(self.driver, self.home_page.home["add_to_cart_modal"]["locator"])
         self.asserts.verify_element_text(
-            self.steps.get_element(self.driver,
-                                   self.home_page.home["add_to_cart_modal"]["success"]["label"]["locator"]),
+            self.steps.get_element(self.driver, self.home_page.home["add_to_cart_modal"]["label_success"]),
             self.checkout_data["expected_data"]["add_to_cart_success_spiel"])
         self.asserts.verify_element_text(
-            self.steps.get_element(self.driver,
-                                   self.home_page.home["add_to_cart_modal"]["product"]["label"]["locator"]),
+            self.steps.get_element(self.driver, self.home_page.home["add_to_cart_modal"]["label_product"]),
             self.checkout_data["expected_data"]["product_name"])
         self.asserts.verify_element_text(
-            self.steps.get_element(self.driver,
-                                   self.home_page.home["add_to_cart_modal"]["cart_count"]["label"]["locator"]),
+            self.steps.get_element(self.driver, self.home_page.home["add_to_cart_modal"]["label_cart_count"]),
             self.checkout_data["expected_data"]["cart_count_spiel"])
         self.home_page.click_proceed_to_checkout_button(self.driver)
-        self.asserts.verify_element_visibility(self.driver, self.cart_page.cart["header"]["label"]["locator"])
-        self.asserts.verify_text_in_elements(
-            self.driver, self.cart_page.cart["product"]["description"]["name"]["label"]["locator"],
-            self.checkout_data["expected_data"]["cart_product_names"])
+        self.asserts.verify_element_visibility(self.driver, self.cart_page.cart["header"])
+        self.asserts.verify_text_in_elements(self.driver, self.cart_page.cart["product"]["description"]["label_name"],
+                                             self.checkout_data["expected_data"]["cart_product_names"])
         self.asserts.verify_element_value(
-            self.steps.get_generic_element(
-                self.driver,
-                self.cart_page.cart["product"]["quantity"]["input"]["locator"],
-                self.checkout_data["input_data"]["product_name"]),
+            self.steps.get_generic_element(self.driver, self.cart_page.cart["product"]["input_quantity"],
+                                           self.checkout_data["input_data"]["product_name"]),
             self.checkout_data["expected_data"]["product_quantity"])
         self.cart_page.click_proceed_to_checkout_button(self.driver)
         self.login_page.input_email_address(self.driver, self.checkout_data["input_data"]["email"])
         self.login_page.input_password(self.driver, self.checkout_data["input_data"]["password"])
         self.login_page.click_login_button(self.driver)
         self.asserts.verify_element_text(
-            self.steps.get_element(
-                self.driver,
-                self.cart_page.cart["address"]["delivery"]["name"]["label"]["locator"]),
+            self.steps.get_element(self.driver, self.cart_page.cart["address"]["delivery"]["label_name"]),
             self.checkout_data["expected_data"]["customer_name"])
         self.asserts.verify_element_text(
-            self.steps.get_element(
-                self.driver,
-                self.cart_page.cart["address"]["delivery"]["country"]["label"]["locator"]),
+            self.steps.get_element(self.driver, self.cart_page.cart["address"]["delivery"]["label_country"]),
             self.checkout_data["expected_data"]["customer_country"])
         self.cart_page.click_checkout_button_from_address(self.driver)
         self.cart_page.tick_shipping_terms_of_service_checkbox(self.driver)
         self.cart_page.click_checkout_button_from_shipping(self.driver)
         self.asserts.verify_element_text(
-            self.steps.get_generic_element(
-                self.driver,
-                self.cart_page.cart["payment"]["unit_price"]["label"]["locator"],
-                self.checkout_data["input_data"]["product_name"]),
+            self.steps.get_generic_element(self.driver, self.cart_page.cart["payment"]["label_unit_price"],
+                                           self.checkout_data["input_data"]["product_name"]),
             self.checkout_data["expected_data"]["product_price"])
         self.asserts.verify_element_text(
-            self.steps.get_generic_element(
-                self.driver,
-                self.cart_page.cart["payment"]["total"]["label"]["locator"],
-                self.checkout_data["input_data"]["product_name"]),
+            self.steps.get_generic_element(self.driver, self.cart_page.cart["payment"]["label_total"],
+                                           self.checkout_data["input_data"]["product_name"]),
             self.checkout_data["expected_data"]["product_total"])
-        total_products = self.steps.get_element(
-            self.driver, self.cart_page.cart["payment"]["total_products"]["label"]["locator"]).text
-        total_shipping = self.steps.get_element(
-            self.driver, self.cart_page.cart["payment"]["total_shipping"]["label"]["locator"]).text
-        tax = self.steps.get_element(self.driver, self.cart_page.cart["payment"]["total_tax"]["label"]["locator"]).text
+        total_products = self.steps.get_element(self.driver,
+                                                self.cart_page.cart["payment"]["label_total_products"]).text
+        total_shipping = self.steps.get_element(self.driver,
+                                                self.cart_page.cart["payment"]["label_total_shipping"]).text
+        tax = self.steps.get_element(self.driver, self.cart_page.cart["payment"]["label_total_tax"]).text
         self.asserts.verify_element_text(
-            self.steps.get_element(self.driver, self.cart_page.cart["payment"]["cart_total"]["label"]["locator"]),
-            '$' + str(
+            self.steps.get_element(self.driver, self.cart_page.cart["payment"]["label_cart_total"]), '$' + str(
                 float(total_products.split('$')[1]) + float(total_shipping.split('$')[1]) + float(tax.split('$')[1])))
         self.cart_page.click_pay_by_bankwire_button(self.driver)
         self.asserts.verify_element_text(
-            self.steps.get_element(self.driver, self.cart_page.cart["payment"]["payment_channel"]["header"]["locator"]),
+            self.steps.get_element(self.driver, self.cart_page.cart["payment"]["header_payment_channel"]),
             self.checkout_data["expected_data"]["bankwire_header"])
         self.cart_page.click_confirm_order_button(self.driver)
         self.asserts.verify_element_text(
-            self.steps.get_element(self.driver, self.cart_page.cart["payment"]["order_complete"]["label"]["locator"]),
+            self.steps.get_element(self.driver, self.cart_page.cart["payment"]["label_order_complete"]),
             self.checkout_data["expected_data"]["order_complete_spiel"])

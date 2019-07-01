@@ -36,5 +36,5 @@ class TestLogin(object):
         self.login_page.input_password(self.driver, self.login_data["input_data"]["password"])
         self.login_page.click_login_button(self.driver)
         self.asserts.verify_element_text(
-            self.steps.get_element(self.driver, self.home_page.home["user_menu"]["my_account"]["label"]["locator"]),
+            self.steps.get_element(self.driver, self.home_page.home["user_menu"]["label_my_account"]),
             self.login_data["expected_data"]["account_name"])
