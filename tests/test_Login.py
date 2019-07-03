@@ -1,3 +1,5 @@
+import pytest
+
 from commands.Utils import Utils
 from commands.TestSteps import TestSteps
 from commands.Assertions import Assertions
@@ -26,15 +28,55 @@ class TestLogin(object):
         cls.login_data = cls.utils.get_test_data("login")
         cls.driver = cls.utils.set_webdriver("chromedriver")
 
+    def setup_method(self):
+        self.steps.navigate_to_url(self.driver, self.config_data["login_url"])
+
     @classmethod
     def teardown_class(cls):
         cls.utils.close_webdriver(cls.driver)
 
+    @pytest.mark.smoke
     def test_valid_login(self):
-        self.steps.navigate_to_url(self.driver, self.config_data["login_url"])
-        self.login_page.input_email_address(self.driver, self.login_data["input_data"]["email"])
-        self.login_page.input_password(self.driver, self.login_data["input_data"]["password"])
-        self.login_page.click_login_button(self.driver)
+        self.login_page.perform_login(self.driver, self.login_data["input_data"]["email"],
+                                      self.login_data["input_data"]["password"])
         self.asserts.verify_element_text(
             self.steps.get_element(self.driver, self.home_page.home["user_menu"]["label_my_account"]),
             self.login_data["expected_data"]["account_name"])
+
+    @pytest.mark.negative
+    def test_blank_email_login(self):
+        self.login_page.perform_login(self.driver, "", self.login_data["input_data"]["password"])
+        self.asserts.verify_url(self.driver, self.config_data["login_url"].split('&')[0])
+        self.asserts.verify_element_text(self.steps.get_element(self.driver, self.login_page.alert["label_spiel"]),
+                                         self.login_data["expected_data"]["blank_email_login_error"])
+
+    @pytest.mark.negative
+    def test_blank_password_login(self):
+        self.login_page.perform_login(self.driver, self.login_data["input_data"]["email"], "")
+        self.asserts.verify_url(self.driver, self.config_data["login_url"].split('&')[0])
+        self.asserts.verify_element_text(self.steps.get_element(self.driver, self.login_page.alert["label_spiel"]),
+                                         self.login_data["expected_data"]["blank_password_login_error"])
+
+    @pytest.mark.negative
+    def test_invalid_email_login(self):
+        self.login_page.perform_login(self.driver, self.login_data["input_data"]["invalid_email"],
+                                      self.login_data["input_data"]["password"])
+        self.asserts.verify_url(self.driver, self.config_data["login_url"].split('&')[0])
+        self.asserts.verify_element_text(self.steps.get_element(self.driver, self.login_page.alert["label_spiel"]),
+                                         self.login_data["expected_data"]["invalid_email_login_error"])
+
+    @pytest.mark.negative
+    def test_invalid_password_login(self):
+        self.login_page.perform_login(self.driver, self.login_data["input_data"]["email"],
+                                      self.login_data["input_data"]["invalid_password"])
+        self.asserts.verify_url(self.driver, self.config_data["login_url"].split('&')[0])
+        self.asserts.verify_element_text(self.steps.get_element(self.driver, self.login_page.alert["label_spiel"]),
+                                         self.login_data["expected_data"]["invalid_password_login_error"])
+
+    @pytest.mark.negative
+    def test_short_password_login(self):
+        self.login_page.perform_login(self.driver, self.login_data["input_data"]["email"],
+                                      self.login_data["input_data"]["short_password"])
+        self.asserts.verify_url(self.driver, self.config_data["login_url"].split('&')[0])
+        self.asserts.verify_element_text(self.steps.get_element(self.driver, self.login_page.alert["label_spiel"]),
+                                         self.login_data["expected_data"]["short_password_login_error"])

@@ -12,9 +12,17 @@ class LoginPage:
         "input_email": "css=#email_create",
         "button_create_account": "css=#SubmitCreate"
     }
+    alert = {
+        "label_spiel": "css=div.alert-danger li"
+    }
 
     def __init__(self):
         self.steps = TestSteps()
+
+    def perform_login(self, driver, email, password):
+        self.input_email_address(driver, email)
+        self.input_password(driver, password)
+        self.click_login_button(driver)
 
     def input_email_address(self, driver, email):
         self.steps.get_element(driver, self.login["input_email"]).send_keys(email)

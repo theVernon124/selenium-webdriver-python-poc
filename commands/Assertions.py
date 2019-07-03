@@ -26,3 +26,6 @@ class Assertions:
     def verify_element_value(self, element, expected_value):
         assert expected_value in element.get_attribute("value"), \
             "Expected element value: " + expected_value + ". Actual: " + element.get_attribute("value")
+
+    def verify_url(self, driver, expected_url):
+        assert expected_url in driver.current_url
