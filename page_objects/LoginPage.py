@@ -10,7 +10,8 @@ class LoginPage:
     }
     register = {
         "input_email": "css=#email_create",
-        "button_create_account": "css=#SubmitCreate"
+        "button_create_account": "css=#SubmitCreate",
+        "label_error": "css=#create_account_error li"
     }
     alert = {
         "label_spiel": "css=div.alert-danger li"
@@ -23,6 +24,10 @@ class LoginPage:
         self.input_email_address(driver, email)
         self.input_password(driver, password)
         self.click_login_button(driver)
+
+    def perform_create_account(self, driver, email):
+        self.input_register_email(driver, email)
+        self.click_create_account_button(driver)
 
     def input_email_address(self, driver, email):
         self.steps.get_element(driver, self.login["input_email"]).send_keys(email)

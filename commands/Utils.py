@@ -53,4 +53,4 @@ class Utils:
         return self.fake.postcode()
 
     def generate_test_mobile_phone(self):
-        return self.fake.phone_number()
+        return self.fake.phone_number().split('x')[0]

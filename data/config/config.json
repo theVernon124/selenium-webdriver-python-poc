@@ -2,5 +2,6 @@
   "chromedriver_path": "C:\\Users\\dell\\Utilities\\chromedriver_win32\\chromedriver.exe",
   "implicit_wait_timeout": 15,
   "login_url": "http://automationpractice.com/index.php?controller=authentication&back=my-account",
-  "home_url": "http://automationpractice.com/index.php"
+  "home_url": "http://automationpractice.com/index.php",
+  "register_url": "http://automationpractice.com/index.php?controller=authentication"
 }
