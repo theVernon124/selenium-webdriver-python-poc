@@ -10,7 +10,8 @@ class HomePage:
         "product_list": {
             "product_card": {
                 "label": "xpath=//a[@class='product-name'][contains(text(), '{}')]",
-                "button_add_to_cart": "xpath=//a[contains(text(), '{}')]/parent::h5/following-sibling::div[@class='button-container']/a[@title='Add to cart']"
+                "button_add_to_cart": "xpath=//a[contains(text(), '{}')]/parent::h5/following-sibling::div[@class='button-container']/a[@title='Add to cart']",
+                "button_quick_view": "xpath=//a[contains(text(), '{}')]/ancestor::div[@class='right-block']/preceding-sibling::div[@class='left-block']//a[@class='quick-view']"
             }
         },
         "add_to_cart_modal": {
@@ -32,6 +33,14 @@ class HomePage:
     def click_add_to_cart_button(self, driver, product_name):
         add_to_cart_button_locator = self.home["product_list"]["product_card"]["button_add_to_cart"]
         self.steps.get_element(driver, add_to_cart_button_locator.format(product_name)).click()
+
+    def click_product_card(self, driver, product_name):
+        product_card_locator = self.home["product_list"]["product_card"]["label"]
+        self.steps.get_element(driver, product_card_locator.format(product_name)).click()
+
+    def click_quick_view_button(self, driver, product_name):
+        quick_view_button_locator = self.home["product_list"]["product_card"]["button_quick_view"]
+        self.steps.get_element(driver, quick_view_button_locator.format(product_name)).click()
 
     def click_proceed_to_checkout_button(self, driver):
         self.steps.get_element(driver, self.home["add_to_cart_modal"]["button_checkout"]).click()

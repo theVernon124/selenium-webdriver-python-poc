@@ -2,7 +2,9 @@
   "input_data": {
     "product_name": "Faded Short Sleeve T-shirts",
     "email": "thevernon124+stang@gmail.com",
-    "password": "Test1234"
+    "password": "Test1234",
+    "zero_product_quantity": "0",
+    "non_numeric_product_quantity": "iamaninvalidquantity"
   },
   "expected_data": {
     "add_to_cart_success_spiel": "Product successfully added to your shopping cart",
@@ -15,6 +17,8 @@
     "product_price": "$16.51",
     "product_total": "$16.51",
     "bankwire_header": "BANK-WIRE PAYMENT.",
-    "order_complete_spiel": "Your order on My Store is complete."
+    "order_complete_spiel": "Your order on My Store is complete.",
+    "unticked_tos_error": "You must agree to the terms of service before continuing.",
+    "invalid_product_quantity_add_to_cart_error": "Null quantity."
   }
 }

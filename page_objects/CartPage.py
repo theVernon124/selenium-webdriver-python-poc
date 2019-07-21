@@ -20,7 +20,8 @@ class CartPage:
         },
         "shipping": {
             "checkbox_terms_of_service": "css=#cgv",
-            "button_proceed_to_checkout": "css=button[name='processCarrier']"
+            "button_proceed_to_checkout": "css=button[name='processCarrier']",
+            "label_shipping_error": "css=p.fancybox-error"
         },
         "payment": {
             "label_unit_price": "xpath=//a[text()='{}']/ancestor::td[@class='cart_description']/following-sibling::td[@class='cart_unit']/span[@class='price']",
